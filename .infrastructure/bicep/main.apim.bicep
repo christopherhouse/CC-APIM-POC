@@ -27,6 +27,9 @@ param vnetIntegrationMode string
 @description('The resource id of the subnet to integrate with')
 param vnetSubnetResourceId string
 
+@description('An array of Entra Object IDs representing users that need administrative access to the Key Vault')
+param keyVaultAdminIdentities array
+
 @description('Date/time of deployment.  Optional param, defaults to utcNow(), used to compute a semi-unique deployment name')
 param deploymentDateTime string = utcNow()
 
@@ -35,6 +38,7 @@ var keyVaultName = '${workloadName}-${environmentSuffix}-kv'
 var logAnalyticsWorkspaceName = '${workloadName}-${environmentSuffix}-laws'
 var applicationInsightsName = '${workloadName}-${environmentSuffix}-ai'
 var publicIpAddressName = '${workloadName}-${environmentSuffix}-pip'
+var userAssignedManagedIdentiyName = '${workloadName}-${environmentSuffix}-uami'
 
 var deploymentSuffix = uniqueString(deploymentDateTime)
 
@@ -43,6 +47,15 @@ var keyVaultDeploymentName = '${keyVaultName}-${deploymentSuffix}'
 var logAnalyticsWorkspaceDeploymentName = '${logAnalyticsWorkspaceName}-${deploymentSuffix}'
 var applicationInsightsDeploymentName = '${applicationInsightsName}-${deploymentSuffix}'
 var publicIpAddressDeploymentName = '${publicIpAddressName}-${deploymentSuffix}'
+var userAssignedManagedIdentiyDeploymentName = '${userAssignedManagedIdentiyName}-${deploymentSuffix}'
+
+module umami './modules/managedIdentity/userAssignedManagedIdentity.bicep' = {
+  name: userAssignedManagedIdentiyDeploymentName
+  params: {
+    managedIdentityName: userAssignedManagedIdentiyName
+    location: location
+  }
+}
 
 module laws './modules/observability/logAnalyticsWorkspace.bicep' = {
   name: logAnalyticsWorkspaceDeploymentName
@@ -61,11 +74,37 @@ module appInsights './modules/observability/applicationInsights.bicep' = {
   }
 }
 
+module kv './modules/keyVault/keyVault.bicep' = {
+  name: keyVaultDeploymentName
+  params: {
+    keyVaultName: keyVaultName
+    location: location
+    adminIdentities: keyVaultAdminIdentities
+    applicationIdentities: [ umami.outputs.principalId ]
+  }
+}
+
 module pip './modules/publicIpAddress/publicIpAddress.bicep' = {
   name: publicIpAddressDeploymentName
   params: {
     publicIpAddressName: publicIpAddressName
     location: location
     dnsLabel: apiManagementName
+  }
+}
+
+module apim './modules/apiManagement/apiManagementService.bicep' = {
+  name: apiManagementDeploymentName
+  params: {
+    apiManagementServiceName: apiManagementName
+    location: location
+    skuName: skuName
+    skuCapacity: skuCapacity
+    publisherEmailAddress: publisherEmailAddress
+    publisherName: publisherOrganizationName
+    vnetIntegrationMode: vnetIntegrationMode
+    vnetSubnetResourceId: vnetSubnetResourceId
+    publicIpResourceId: pip.outputs.id
+    userAssignedManagedIdentityObjectId: umami.outputs.principalId
   }
 }

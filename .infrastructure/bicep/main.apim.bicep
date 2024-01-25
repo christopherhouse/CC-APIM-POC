@@ -44,4 +44,11 @@ var logAnalyticsWorkspaceDeploymentName = '${logAnalyticsWorkspaceName}-${deploy
 var applicationInsightsDeploymentName = '${applicationInsightsName}-${deploymentSuffix}'
 var publicIpAddressDeploymentName = '${publicIpAddressName}-${deploymentSuffix}'
 
-
+module pip './modules/publicIpAddress/publicIpAddress.bicep' = {
+  name: publicIpAddressDeploymentName
+  params: {
+    publicIpAddressName: publicIpAddressName
+    location: location
+    dnsLabel: apiManagementName
+  }
+}

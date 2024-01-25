@@ -24,7 +24,7 @@ Here are the resources created by the Bicep templates:
 
 #### Description
 
-The [Deploy-Nsg.ps1]('.infrastructure/bicep/scripts.Deploy-Nsg.ps1') script deploys a Network Security Group (NSG) to a specified Azure resource group. The NSG is defined using the Bicep template [main.nsg.bicep](.infrastructure/bicep/main.nsg.bicep).  After the Bicep template is deployed, the script attaches the NSG to an existing subnet.  API Management requires
+The [Deploy-Nsg.ps1]('.infrastructure/bicep/scripts/Deploy-Nsg.ps1') script deploys a Network Security Group (NSG) to a specified Azure resource group. The NSG is defined using the Bicep template [main.nsg.bicep](.infrastructure/bicep/main.nsg.bicep).  After the Bicep template is deployed, the script attaches the NSG to an existing subnet.  API Management requires
 this NSG to be attached to the subnet where the API Management instance is deployed, so this script must be run before running the script that deploys API Management.
 
 **Ensure before running this script that you have the necessary role to update the configuration of the subnet you're using or it will fail to attach the NSG to the subnet.  API Management will not deploy to a subnet without the required NSG in place**

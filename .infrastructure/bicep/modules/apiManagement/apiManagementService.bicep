@@ -8,12 +8,16 @@ param publisherName string
 param vnetIntegrationMode string
 param vnetSubnetResourceId string
 param publicIpResourceId string
+param userAssignedManagedIdentityObjectId string
 
 resource apiManagementService 'Microsoft.ApiManagement/service@2023-03-01-preview' = {
   name: apiManagementServiceName
   location: location
   identity: {
-    type: 'SystemAssigned'
+    type: 'UserAssigned'
+    userAssignedIdentities: {
+      '${userAssignedManagedIdentityObjectId}': {}
+    }
   }
   sku: {
     name: skuName

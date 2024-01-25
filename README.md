@@ -96,6 +96,14 @@ in this repository, [main.apim.bicepparam](./.infrastructure/bicep/parameters/ma
 | location | string | The region where resources will be provisioned. |
 | deploymentDateTime | string | Date/time of deployment. Optional parameter, defaults to `utcNow()`, used to compute a semi-unique deployment name. |
 
+## Deploying
+1. Clone this repository to your local machine.
+2. Edit the parameter files to specify the values you want to use
+3. Run the `Deploy-Nsg.ps1` script to deploy the NSG and attach it to a subnet.
+4. Run the `Deploy-Apim.ps1` script to deploy the API Management instance.
+
+**Note, Azure API Management can take 25+ minutes to deploy, so be patient on step #4.**
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

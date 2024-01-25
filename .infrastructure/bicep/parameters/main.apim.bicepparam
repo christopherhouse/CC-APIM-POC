@@ -1,4 +1,4 @@
-using '../main.bicep'
+using '../main.apim.bicep'
 
 param workloadName = 'cmh-cc-apim-poc'
 param environmentSuffix = 'dev'

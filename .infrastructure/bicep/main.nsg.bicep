@@ -25,3 +25,4 @@ module nsg './modules/networkSecurityGroup/apimNetworkSecurityGroup.bicep' = {
 }
 
 output nsgResourceId string = nsg.outputs.id
+output nsgName string = nsg.outputs.name

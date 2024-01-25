@@ -1,4 +1,3 @@
-
 @description('The name of this workload.  This is used for computing resource names in the form of <workloadName>-<environmentSuffix>-<resource type>')
 param workloadName string
 

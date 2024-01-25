@@ -7,7 +7,7 @@ param environmentSuffix string
 @description('The region resources will be provisioned in')
 param location string
 
-@description('THe name of the SKU to provision')
+@description('The name of the SKU to provision')
 @allowed(['Developer', 'Premium', 'StandardV2'])
 param skuName string
 
@@ -101,7 +101,7 @@ module apim './modules/apiManagement/apiManagementService.bicep' = {
     skuName: skuName
     skuCapacity: skuCapacity
     publisherEmailAddress: publisherEmailAddress
-    publisherName: publisherOrganizationName
+    publisherOrganizationName: publisherOrganizationName
     vnetIntegrationMode: vnetIntegrationMode
     vnetSubnetResourceId: vnetSubnetResourceId
     publicIpResourceId: pip.outputs.id

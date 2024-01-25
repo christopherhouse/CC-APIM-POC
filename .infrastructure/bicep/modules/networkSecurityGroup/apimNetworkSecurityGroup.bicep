@@ -1,4 +1,7 @@
+@description('The name of the NSG to create')
 param nsgName string
+
+@description('The region where the NSG will be created')
 param location string
 
 resource nsg 'Microsoft.Network/networkSecurityGroups@2023-06-01' = {

@@ -1,6 +1,13 @@
+@description('The name of the Key Vault resource to create')
 param keyVaultName string
+
+@description('The region where the Key Vault resource will be created')
 param location string
+
+@description('An array of Entra Object IDs that represent users requiring administrative access to the Key Vault')
 param adminIdentities array
+
+@description('An array of Entra Object IDs that represent application princiapals requiring access to the Key Vault for secret and certificate get/list')
 param applicationIdentities array
 
 var adminPolicies = [for id in adminIdentities: {

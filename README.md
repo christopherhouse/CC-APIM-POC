@@ -46,14 +46,9 @@ To run the `Deploy-Nsg.ps1` script, use the following command:
 ```
 
 ### Deploy-Apim.ps1
-
-This PowerShell script is used to deploy an Azure API Management (APIM) instance to an Azure resource group using a Bicep template.
-
 #### Description
 
-The `Deploy-Apim.ps1` script deploys an Azure API Management (APIM) instance to a specified Azure resource group. The APIM instance is defined using a Bicep template, which is a declarative language for describing and deploying Azure resources.
-
-The APIM instance created by this script provides a unified API gateway that makes it easy to publish, manage, secure, and analyze APIs in Azure.
+The [Deploy-Apim.ps1](.infrastructure/bicep/scripts/Deploy-Apim.ps1) script deploys an Azure API Management (APIM) instance and associated resources to a specified Azure resource group. The resources are defined using the Bicep template [main.apim.bicep](.infrastructure/bicep/main.apim.bicep).
 
 #### Parameters
 

@@ -73,6 +73,29 @@ To run the `Deploy-Apim.ps1` script, use the following command:
 Both the NSG and APIM Bicep templates require a number of parameters.  The value for these parameters should be specified in the parameter files included
 in this repository, [main.apim.bicepparam](./.infrastructure/bicep/parameters/main.apim.bicepparam) and [main.nsg.bicepparam](./.infrastructure/bicep/parameters/main.nsg.bicepparam).
 
+### main.apim.bicepparam
+| Parameter Name | Type | Description |
+| -------------- | ---- | ----------- |
+| workloadName | string | The name of this workload. Used for computing resource names. |
+| environmentSuffix | string | The name or abbreviation of the environment. Used for computing resource names. |
+| location | string | The region where resources will be provisioned. |
+| skuName | string | The name of the SKU to provision. Allowed values are 'Developer', 'Premium', 'StandardV2'. |
+| skuCapacity | int | The number of scale units to provision. Default is 1. |
+| publisherEmailAddress | string | The email address associated with the publisher. Used as the send-from address for email notifications. |
+| publisherOrganizationName | string | The name of the API publisher's organization. Used in the developer portal and for email notifications. |
+| vnetIntegrationMode | string | The vnet integration mode. Allowed values are 'Internal', 'External'. |
+| vnetSubnetResourceId | string | The resource id of the subnet to integrate with. |
+| keyVaultAdminIdentities | array | An array of Entra Object IDs representing users that need administrative access to the Key Vault. |
+| deploymentDateTime | string | Date/time of deployment. Optional parameter, defaults to utcNow(), used to compute a semi-unique deployment name. |
+
+### main.nsg.bicepparam
+| Parameter Name | Type | Description |
+| -------------- | ---- | ----------- |
+| workloadName | string | The name of this workload. This is used for computing resource names in the form of `<workloadName>-<environmentSuffix>-<resource type>`. |
+| environmentSuffix | string | The name or abbreviation of the environment where resources will be provisioned. This is used for computing resource names in the form of `<workloadName>-<environmentSuffix>-<resource type>`. |
+| location | string | The region where resources will be provisioned. |
+| deploymentDateTime | string | Date/time of deployment. Optional parameter, defaults to `utcNow()`, used to compute a semi-unique deployment name. |
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

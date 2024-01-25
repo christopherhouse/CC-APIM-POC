@@ -14,6 +14,7 @@ Write-Host "** Begining deployment and vnet update with the following parameters
 Write-Host "** Resource Group Name: $ResourceGroupName"
 Write-Host "** Subnet Name: $SubnetName"
 Write-Host "** Vnet Name: $VnetName"
+Write-Host ""
 
 # Use Az Powershell to deploy the template ../main.nsg.bicep with the parameter file
 # ../parameters/main.nsg.bicepparam to the resource group named $ResourceGroupName.
@@ -27,7 +28,9 @@ $deploymentOutput = New-AzResourceGroupDeployment -ResourceGroupName $ResourceGr
     -ErrorAction Stop `
     -OutVariable nsgResourceId
 
+ Write-Host ""
 Write-Host "** Deployment complete, attaching NSG to subnet $SubnetName"
+Write-Host ""
 $nsgName = $deploymentOutput.Outputs.nsgName.Value
 
 # Get the virtual network specified by the name $VnetName in the resource group $ResourceGroupName.
@@ -49,4 +52,5 @@ Set-AzVirtualNetworkSubnetConfig -VirtualNetwork $vnet `
 
 $vnet | Set-AzVirtualNetwork
 
+Write-Host ""
 Write-Host "** NSG attached to subnet $SubnetName"

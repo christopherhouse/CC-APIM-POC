@@ -1,4 +1,4 @@
-# Azure Bicep and PowerShell Repository
+# Azure API Management POC Deployment Resources
 
 This repository contains Azure Bicep templates and PowerShell scripts creating resources needed to run an Azure API Management POC.  There are
 two Bicep templates, one to create the Network Security Group required by vnet integrated API Management and one to create an API Management resource,

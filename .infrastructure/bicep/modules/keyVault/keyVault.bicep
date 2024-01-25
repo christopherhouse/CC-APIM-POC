@@ -21,6 +21,10 @@ var appPolicies = [for id in applicationIdentities: {
       'Get'
       'List'
   ]
+  certificates: [
+    'Get'
+    'List'
+  ]
   }
 }]
 

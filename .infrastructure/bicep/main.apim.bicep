@@ -105,6 +105,6 @@ module apim './modules/apiManagement/apiManagementService.bicep' = {
     vnetIntegrationMode: vnetIntegrationMode
     vnetSubnetResourceId: vnetSubnetResourceId
     publicIpResourceId: pip.outputs.id
-    userAssignedManagedIdentityObjectId: umami.outputs.principalId
+    userAssignedManagedIdentityResourceId: umami.outputs.id
   }
 }

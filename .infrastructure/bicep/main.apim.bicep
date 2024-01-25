@@ -44,6 +44,23 @@ var logAnalyticsWorkspaceDeploymentName = '${logAnalyticsWorkspaceName}-${deploy
 var applicationInsightsDeploymentName = '${applicationInsightsName}-${deploymentSuffix}'
 var publicIpAddressDeploymentName = '${publicIpAddressName}-${deploymentSuffix}'
 
+module laws './modules/observability/logAnalyticsWorkspace.bicep' = {
+  name: logAnalyticsWorkspaceDeploymentName
+  params: {
+    logAnalyticsWorkspaceName: logAnalyticsWorkspaceName
+    location: location
+  }
+}
+
+module appInsights './modules/observability/applicationInsights.bicep' = {
+  name: applicationInsightsDeploymentName
+  params: {
+    appInsightsName: applicationInsightsName
+    logAnalyticsWorkspaceId: laws.outputs.id
+    location: location
+  }
+}
+
 module pip './modules/publicIpAddress/publicIpAddress.bicep' = {
   name: publicIpAddressDeploymentName
   params: {
